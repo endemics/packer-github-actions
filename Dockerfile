@@ -41,7 +41,9 @@ RUN go build
 
 # light @ v1.6.6
 FROM hashicorp/packer:light@sha256:523457b5371562c4d9c21621ee85c71c31e7ff53d5ec303a5daf07c55531b84e
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache \
+    libc6-compat \
+    multipath-tools
 COPY --from=qemu-builder /usr/local/qemu /usr/local/qemu
 RUN ln -s /usr/local/qemu/bin/qemu-arm /usr/local/bin/qemu-arm-static
 COPY --from=builder /src/packer-builder-arm-image/packer-builder-arm-image /bin/packer-builder-arm-image
